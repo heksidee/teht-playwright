@@ -15,7 +15,7 @@ describe("Note app", () => {
     test("user can log in", async ({ page }) => {
         await page.goto('http://localhost:5173')
 
-        await page.getByRole("button", { name: "Log in" }).click()
+        await page.getByRole("button", { name: "Login" }).click()
         await page.getByLabel("username").fill("root")
         await page.getByLabel("password").fill("sekret")
 
@@ -26,16 +26,17 @@ describe("Note app", () => {
 
     describe("when logged in", () => {
         beforeEach(async ({ page }) => {
-            await page.getByRole('button', { name: 'Log in' }).click()
+            await page.getByRole('button', { name: 'Login' }).click()
             await page.getByLabel('username').fill('root')
             await page.getByLabel('password').fill('sekret')
             await page.getByRole('button', { name: 'Login' }).click()
+            await expect(page.getByText('root logged in')).toBeVisible()
         })
         test("a new note can be created", async ({ page }) => {
             await page.getByRole("button", { name: "new note" }).click()
             await page.getByRole("textbox").fill("a note created by playwright")
-            await page.getByRole("button", { name: "Save"}).click()
-            await expect(page.getByText("a note created by root")).toBeVisible()
+            await page.getByRole("button", { name: "Save" }).click()
+            await expect(page.getByText("a note created by playwright vol 2")).toBeVisible()
         })
     })
 })
