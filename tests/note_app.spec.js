@@ -1,5 +1,4 @@
-const { test, describe, expect } = require('@playwright/test')
-const { beforeEach } = require('node:test')
+const { test, describe, expect, beforeEach } = require('@playwright/test')
 
 describe("Note app", () => {
     beforeEach(async ({ page, request }) => {
@@ -24,21 +23,21 @@ describe("Note app", () => {
         await page.goto('http://localhost:5173')
 
         await page.getByRole("button", { name: "Login" }).click()
-        await page.getByLabel("username").fill("root")
-        await page.getByLabel("password").fill("sekret")
+        await page.getByLabel("username").fill("AC")
+        await page.getByLabel("password").fill("beebelintorni")
 
         await page.getByRole("button", { name: "Login" }).click()
 
-        await expect(page.getByText("root logged in")).toBeVisible()
+        await expect(page.getByText("AC logged in")).toBeVisible()
     })
 
     describe("when logged in", () => {
         beforeEach(async ({ page }) => {
             await page.getByRole('button', { name: 'Login' }).click()
-            await page.getByLabel('username').fill('root')
-            await page.getByLabel('password').fill('sekret')
+            await page.getByLabel('username').fill('AC')
+            await page.getByLabel('password').fill('beebelintorni')
             await page.getByRole('button', { name: 'Login' }).click()
-            await expect(page.getByText('root logged in')).toBeVisible()
+            await expect(page.getByText('AC logged in')).toBeVisible()
         })
         test("a new note can be created", async ({ page }) => {
             await page.getByRole("button", { name: "new note" }).click()
@@ -49,7 +48,7 @@ describe("Note app", () => {
 
         describe("and a note exist", () => {
             beforeEach(async ({ page }) => {
-                await page.getByRole("button", { name: new note }).click()
+                await page.getByRole("button", { name: "new note" }).click()
                 await page.getByRole("textbox").fill("another note by playwright")
                 await page.getByRole("button", { name: "Save" }).click()
             })
