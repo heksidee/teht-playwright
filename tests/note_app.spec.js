@@ -65,6 +65,7 @@ describe("Note app", () => {
             })
 
             test("one of those can be made nonimportant", async ({ page }) => {
+                await page.pause()
                 const otherNotetext = page.getByText("second note")
                 const otherNoteElement = otherNotetext.locator("..")
 
